@@ -1,4 +1,3 @@
-//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -74,18 +73,18 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff191970),
+      backgroundColor: Color.fromARGB(255, 96, 113, 168),
       body: Stack(
         children: [
           Container(
             padding: const EdgeInsets.only(left: 35, top: 150),
-            child: const Column(
+            child: Column(
               children: [
-                // Image.asset(
-                //   "android/assets/image/logologin.png",
-                //   width: 300, // Adjust the width as needed
-                //   height: 200, // Adjust the height as needed
-                // ),
+                Image.asset(
+                  "assets/appdesign/images/img4.png",
+                  width: 300, // Adjust the width as needed
+                  height: 200, // Adjust the height as needed
+                ),
               ],
             ),
           ),
@@ -140,7 +139,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 backgroundColor: Colors.white70,
                                 disabledBackgroundColor: Colors.black,
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
+                                    horizontal: 15,
+                                    vertical: 8), // Adjusted size
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
@@ -149,14 +149,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 'Log in',
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 20,
+                                  fontSize: 16, // Adjusted size
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 40),
+                        const SizedBox(height: 20), // Adjusted space
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -170,8 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 'Sign up',
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  fontSize: 20,
+                                  fontSize: 16, // Adjusted size
                                   color: Colors.white70,
                                 ),
                               ),
@@ -186,9 +185,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: const Text(
                                 'Forgot Password?',
                                 style: TextStyle(
-                                  decoration: TextDecoration.underline,
                                   color: Colors.white70,
-                                  fontSize: 20,
+                                  fontSize: 16, // Adjusted size
                                 ),
                               ),
                             ),

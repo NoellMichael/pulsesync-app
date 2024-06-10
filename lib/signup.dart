@@ -16,9 +16,8 @@ class MyRegister extends StatefulWidget {
 class _MyRegisterState extends State<MyRegister> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  //final _bloodController = TextEditingController();
-  //final _mobileController = TextEditingController();
   final _nameController = TextEditingController();
+
   void pointTo() {
     Navigator.pushReplacementNamed(context, 'login');
   }
@@ -28,8 +27,6 @@ class _MyRegisterState extends State<MyRegister> {
       String email = _emailController.text.trim();
       String password = _passwordController.text.trim();
       String fullname = _nameController.text.trim();
-      //String bloodgroup = _bloodController.text.trim();
-      //String mobilenumber = _mobileController.text.trim();
 
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
@@ -45,13 +42,7 @@ class _MyRegisterState extends State<MyRegister> {
       await FirebaseFirestore.instance
           .collection("users")
           .doc(user?.email)
-          .set({
-        'name': fullname,
-        //'blood': bloodgroup,
-        //'mobile': mobilenumber,
-        'email': email,
-        'password': password
-      });
+          .set({'name': fullname, 'email': email, 'password': password});
       reg = 'success';
     } catch (error) {
       reg = 'not success';
@@ -62,16 +53,16 @@ class _MyRegisterState extends State<MyRegister> {
   }
 
   String reg = 'not success';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
       ),
-      backgroundColor: const Color(0xff191970),
+      backgroundColor: Color.fromARGB(255, 96, 113, 168),
       body: Stack(
         children: [
-          Container(),
           Container(
             padding: const EdgeInsets.only(left: 35, top: 150),
             child: const Text(
@@ -82,171 +73,145 @@ class _MyRegisterState extends State<MyRegister> {
                   fontWeight: FontWeight.w700),
             ),
           ),
-          SingleChildScrollView(
-              child: Container(
-            padding:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.28),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(left: 35, right: 35),
-                  child: Column(
-                    children: [
-                      TextField(
-                        controller: _nameController,
-                        style: const TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    const BorderSide(color: Colors.black)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    const BorderSide(color: Colors.black)),
-                            hintText: "Full Name",
-                            hintStyle: const TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            )),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      /*  TextField(
-                        controller: _bloodController,
-                        style: const TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    const BorderSide(color: Colors.black)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    const BorderSide(color: Colors.black)),
-                            hintText: "Blood Group",
-                            hintStyle: const TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            )),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextField(
-                        controller: _mobileController,
-                        style: const TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    const BorderSide(color: Colors.black)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    const BorderSide(color: Colors.black)),
-                            hintText: "Mobile",
-                            hintStyle: const TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            )),
-                      ),*/
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextField(
-                        controller: _emailController,
-                        style: const TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    const BorderSide(color: Colors.black)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    const BorderSide(color: Colors.black)),
-                            hintText: "Email",
-                            hintStyle: const TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            )),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextField(
-                        controller: _passwordController,
-                        style: const TextStyle(),
-                        obscureText: true,
-                        decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    const BorderSide(color: Colors.black)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    const BorderSide(color: Colors.black)),
-                            hintText: "Password",
-                            hintStyle: const TextStyle(color: Colors.white),
-                            prefixIcon:
-                                const Icon(Icons.lock, color: Colors.white70),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            )),
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginScreen(
-                                              showRegisterPage: () {},
-                                            )),
-                                    (route) => false);
-                              },
-                              child: const Text(
-                                'Log In?',
-                                style: TextStyle(
-                                    color: Colors.white70,
-                                    fontSize: 27,
-                                    fontWeight: FontWeight.w700),
-                              )),
-                          CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Colors.white70,
-                            child: IconButton(
-                                color: Colors.black,
-                                onPressed: () {
-                                  signUp();
-                                  if (reg == 'success') {
-                                    return pointTo();
-                                  }
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_forward,
-                                )),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                    ],
-                  ),
-                )
-              ],
+          Positioned(
+            top: 100,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Image.asset(
+                "assets/appdesign/images/img6.png",
+                width: 150,
+                height: 150,
+              ),
             ),
-          )),
+          ),
+          SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.28),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(left: 35, right: 35),
+                    child: Column(
+                      children: [
+                        TextField(
+                          controller: _nameController,
+                          style: const TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                              fillColor: Colors.white, // Updated
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide:
+                                      const BorderSide(color: Colors.white)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide:
+                                      const BorderSide(color: Colors.white)),
+                              hintText: "Full Name",
+                              hintStyle: const TextStyle(color: Colors.white),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        TextField(
+                          controller: _emailController,
+                          style: const TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                              fillColor: Colors.white, // Updated
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide:
+                                      const BorderSide(color: Colors.white)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide:
+                                      const BorderSide(color: Colors.white)),
+                              hintText: "Email",
+                              hintStyle: const TextStyle(color: Colors.white),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        TextField(
+                          controller: _passwordController,
+                          style: const TextStyle(color: Colors.white),
+                          obscureText: true,
+                          decoration: InputDecoration(
+                              fillColor: Colors.white, // Updated
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide:
+                                      const BorderSide(color: Colors.white)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide:
+                                      const BorderSide(color: Colors.white)),
+                              hintText: "Password",
+                              hintStyle: const TextStyle(color: Colors.white),
+                              prefixIcon:
+                                  const Icon(Icons.lock, color: Colors.white70),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LoginScreen(
+                                                showRegisterPage: () {},
+                                              )),
+                                      (route) => false);
+                                },
+                                child: const Text(
+                                  'Log In?',
+                                  style: TextStyle(
+                                      color: Colors.white70,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700),
+                                )),
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.white,
+                              child: IconButton(
+                                  color: Colors.black,
+                                  onPressed: () {
+                                    signUp();
+                                    if (reg == 'success') {
+                                      return pointTo();
+                                    }
+                                  },
+                                  icon: const Icon(
+                                    Icons.arrow_forward,
+                                  )),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
